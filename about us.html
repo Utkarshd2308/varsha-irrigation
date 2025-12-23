@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us – Varsha Irrigation & Landscape Solutions</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      background: #f2f2f2;
+      color: #333333;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===== HEADER + NAVBAR (same logic as Home) ===== */
+    .main-header {
+      height: 110px;
+      background: linear-gradient(90deg, #b6e2a1 0%, #c0e6f8 50%, #9cc4ff 100%);
+      border-radius: 40px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      width: 100%;
+      margin: 0 0 20px 0;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+    }
+
+    /* logo desktop */
+    .logo-img {
+      height: 130px;
+      width: auto;
+      display: block;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 25px;
+    }
+
+    .main-nav .nav-item {
+      font-weight: 600;
+      text-decoration: none;
+      color: #22313f;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding-bottom: 3px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .main-nav .nav-item:hover,
+    .main-nav .nav-item.active {
+      color: #26a65b;
+      border-color: #26a65b;
+    }
+
+    /* ===== HAMBURGER BUTTON ===== */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+      padding: 5px;
+    }
+
+    .menu-line {
+      width: 25px;
+      height: 3px;
+      background-color: #22313f;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* ===== MOBILE NAV & OVERLAY ===== */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (max-width: 768px) {
+      .logo-img {
+        height: 120px;
+        width:150px; /* mobile वर clear पण safe size */
+      }
+
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 260px;
+        height: 100vh;
+        background-color: #f2f2f2;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem 0;
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+        z-index: 1001;
+      }
+
+      .main-nav.active {
+        right: 0;
+      }
+
+      .main-nav .nav-item {
+        font-size: 1.05rem;
+        padding: 0.8rem;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* ===== PAGE HEADER ===== */
+    header.page-header {
+      background: #f2f2f2;
+      color: #333333;
+      padding: 3rem 0 1rem;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    header.page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .header-content {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      backdrop-filter: blur(5px);
+      background: rgba(255,255,255,0.15);
+      padding: 2rem 2rem;
+      border-radius: 25px;
+      border: 1px solid rgba(255,255,255,0.3);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      color:#333333;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-subtitle {
+      color: #333333;
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    .about-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      margin-top: 2.5rem;
+    }
+
+    .about-grid .card {
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .card,
+    .tone-note {
+      color:#333333;
+      background-color: white;
+      border-radius: 18px;
+      padding: 1.9rem 1.7rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.4s ease;
+    }
+
+    .card:hover,
+    .tone-note:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    }
+
+    .card-title {
+      color:#333333;
+      font-size: 1.15rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card-body {
+      font-size: 0.98rem;
+      color:#333333;
+    }
+
+    .highlight {
+      color:green;
+      font-weight: 600;
+    }
+
+    .section-heading {
+      font-size: 1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.4rem;
+      color: #333333;
+    }
+
+    .bullet-list {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 0.3rem;
+    }
+
+    .bullet-list li {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.96rem;
+      color: #333333;
+    }
+
+    .bullet-dot {
+      color: #333333;
+      margin-top: 0.2rem;
+    }
+
+    .tag-strip {
+      margin-top: 1.3rem;
+      padding-top: 1rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+      font-size: 0.9rem;
+      color: #333333;
+    }
+
+    .tone-note {
+      max-width: 720px;
+      margin: 3rem auto 2rem;
+      text-align: center;
+    }
+
+    @media (max-width: 800px) {
+      .container {
+        padding-inline: 1.1rem;
+      }
+
+      .header-content {
+        padding: 1.7rem 1.3rem;
+      }
+    }
+
+    .floating-actions {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 900;
+    }
+
+    .float-btn {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 3px solid rgba(255,255,255,0.8);
+      backdrop-filter: blur(15px);
+    }
+
+    .call-float {
+      background-color: #ea7b56;
+      color: #333333;
+      order: 2;
+    }
+
+    .call-float:hover {
+      transform: translateY(-8px) scale(1.1);
+      box-shadow: 0 20px 40px rgba(255,107,53,0.6);
+    }
+
+    .whatsapp-float {
+      background-color: rgb(6, 197, 6);
+      color: #333333;
+      order: 1;
+    }
+
+    .whatsapp-float:hover {
+      transform: translateY(-8px) scale(1.1);
+      box-shadow: 0 20px 40px rgba(37,211,102,0.6);
+    }
+
+    .footer-bottom {
+      padding: 1.5rem 0;
+      background:#ffffff;
+      border-top: 1px solid #e5e5e5;
+      font-size: 0.9rem;
+      color:#333333;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Varsha Irrigation Logo" class="logo-img">
+      </a>
+
+      <!-- Hamburger button -->
+      <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+      </div>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" class="nav-item">Home</a>
+        <a href="about us.html" class="nav-item active">About Us</a>
+        <a href="service.html" class="nav-item">Services</a>
+        <a href="index.html#products" class="nav-item">Products</a>
+        <a href="maintenance.html" class="nav-item">Maintenance</a>
+        <a href="contact us.html" class="nav-item">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Overlay for mobile menu -->
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMobileMenu()"></div>
+
+  <!-- PAGE HERO -->
+  <header class="page-header">
+    <div class="container">
+      <div class="header-content">
+        <h1 class="page-title">
+          <b>About <p><span style="color:green">Varsha Irrigation &amp; Landscape</span></p></b>
+        </h1>
+        <br>
+        <p class="page-subtitle">
+          Local irrigation &amp; landscape partner focused on smart water saving for
+          farms, homes and industries in Maharashtra.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- बाकी तुमचा content as-is ... -->
+   <main class="container">
+    <section class="about-grid">
+      <article class="card">
+        <h2 class="card-title">Who We Are</h2>
+        <div class="card-body">
+          <p>
+            <span class="highlight"><b>Varsha Irrigation &amp; Landscape Solutions</b></span> is a
+            locally rooted team based near Pune, working closely with farmers,
+            builders and homeowners to design reliable, long–life irrigation
+            systems.
+          </p>
+          <p style="margin-top: 0.9rem">
+            The team combines practical field knowledge with proper
+            hydraulics–based design so that every project runs with minimum
+            breakdowns and low maintenance costs.
+          </p>
+
+          <h3 class="section-heading">Experience in Irrigation &amp; Landscaping</h3>
+          <ul class="bullet-list">
+            <li>
+              <span class="bullet-dot">•</span>
+              <span><b>Design and installation</b> of drip &amp; sprinkler systems for fruits, vegetables and field crops.</span>
+            </li>
+            <li>
+              <span class="bullet-dot">•</span>
+              <span><b>Landscape irrigation</b> for farmhouses, bungalows, societies and commercial campuses.</span>
+            </li>
+            <li>
+              <span class="bullet-dot">•</span>
+              <span><b>Automation</b> using timers, controllers and moisture–based control for hassle–free watering.</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2 class="card-title">Water Saving First</h2>
+        <div class="card-body">
+          <p>
+            Every design starts with <b><span style="color:green;">Water Saving</span></b> as the main objective –
+            right pipe sizing, proper zoning and efficient emitters to reduce
+            wastage and improve crop or landscape health.
+          </p>
+
+          <h3 class="section-heading">Types of Projects We Handle</h3>
+          <ul class="bullet-list">
+            <li>
+              <span class="bullet-dot">•</span>
+              <span><strong>Residential:</strong> lawns, gardens, terraces and farmhouses with neat, hidden irrigation.</span>
+            </li>
+            <li>
+              <span class="bullet-dot">•</span>
+              <span><strong>Agricultural:</strong> orchards, vineyards, nurseries and open field crops with high–efficiency drip.</span>
+            </li>
+            <li>
+              <span class="bullet-dot">•</span>
+              <span><strong>Industrial &amp; Institutional:</strong> factory lawns, internal roadsides, schools and corporate campuses.</span>
+            </li>
+          </ul>
+
+          <div class="tag-strip">
+            Tone: <span style="color: green;">Trustworthy ,</span><span style="color: green;"> local</span> and
+            solution–oriented – speaking the language of Maharashtra farmers and
+            businesses.
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <p class="tone-note">
+      <b>We believe in clear designs, honest costing and long–term relationships,
+      so that clients call us first whenever they plan the next farm or
+      landscape project.</b>
+    </p>
+  </main>
+
+  <section>
+    <div class="floating-actions">
+      <a href="tel:+919822755102" class="float-btn call-float" title="Call Now">📞</a>
+      <a href="https://wa.me/919822755102?text=Hi%20, I%20want%20irrigation%20service!" class="float-btn whatsapp-float" title="WhatsApp">💬</a>
+    </div>
+  </section>
+
+  <div class="footer-bottom">
+    <div align="center">
+      <p>&copy; 2025 Varsha Irrigation &amp; Landscape Solutions. All rights reserved. | Serving Maharashtra Farmers</p>
+    </div>
+  </div>
+
+
+  <script>
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mainNav');
+      const overlay = document.getElementById('menuOverlay');
+      nav.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
+    function closeMobileMenu() {
+      const nav = document.getElementById('mainNav');
+      const overlay = document.getElementById('menuOverlay');
+      nav.classList.remove('active');
+      overlay.classList.remove('active');
+    }
+
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) {
+        closeMobileMenu();
+      }
+    });
+  </script>
+</body>
+</html>
