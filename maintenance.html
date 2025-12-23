@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Irrigation Maintenance & AMC – Varsha Irrigation</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #F2F2F2;
+      color: #333333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===== TOP HEADER WITH HAMBURGER (same pattern as other pages) ===== */
+    .main-header {
+      height: 110px;
+      background: linear-gradient(90deg, #b6e2a1 0%, #c0e6f8 50%, #9cc4ff 100%);
+      border-radius: 40px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      width: 100%;
+      margin: 0 0 20px 0;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 130px;   /* desktop logo size */
+      width: auto;
+      display: block;
+    }
+
+    /* HAMBURGER MENU */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+      padding: 5px;
+    }
+
+    .menu-line {
+      width: 25px;
+      height: 3px;
+      background-color: #22313f;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 25px;
+    }
+
+    .main-nav .nav-item {
+      font-weight: 600;
+      text-decoration: none;
+      color: #22313f;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding-bottom: 3px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .main-nav .nav-item:hover,
+    .main-nav .nav-item.active {
+      color: #26a65b;
+      border-color: #26a65b;
+    }
+
+    /* MOBILE MENU OVERLAY */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ===== MOBILE MENU STYLES ===== */
+    @media (max-width: 768px) {
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .logo-img {
+        height: 120px;
+        width:150px; /* mobile वर स्पष्ट */
+      }
+
+      .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background-color: #f2f2f2;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem 0;
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+        z-index: 1001;
+      }
+
+      .main-nav.active {
+        right: 0;
+      }
+
+      .main-nav .nav-item {
+        font-size: 1.1rem;
+        padding: 1rem;
+        width: 100%;
+        text-align: center;
+      }
+
+      .header-inner {
+        position: relative;
+      }
+    }
+
+    /* ===== MAINTENANCE CONTENT ===== */
+    .maintenance-page {
+      padding: 4rem 0 3.5rem;
+    }
+
+    .maint-page-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .maint-main-title {
+      font-size: clamp(1.9rem, 4vw, 2.4rem);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.2rem;
+      text-align: center;
+      max-width: 720px;
+    }
+
+    .maint-subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin-bottom: 2.2rem;
+      max-width: 650px;
+      text-align: center;
+    }
+
+    .maint-subtitle span {
+      font-style: italic;
+    }
+
+    .maint-card {
+      background: white;
+      border-radius: 18px;
+      padding: 1.8rem 1.6rem;
+      margin: 0 auto 1.6rem;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: all 0.4s ease;
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .maint-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    }
+
+    .maint-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .maint-text {
+      font-size: 0.98rem;
+    }
+
+    .maint-list {
+      list-style: none;
+      margin: 0.4rem 0 0;
+      padding-left: 0;
+    }
+
+    .maint-list li {
+      margin-bottom: 0.35rem;
+      font-size: 0.98rem;
+    }
+
+    .maint-list strong {
+      font-weight: 600;
+    }
+
+    .plans-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 0.7rem;
+    }
+
+    .plan-pill {
+      flex: 1 1 120px;
+      min-width: 120px;
+      text-align: center;
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      background: #F2F2F2;
+      border: 1px solid rgba(0,0,0,0.08);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .plan-pill.selected {
+      background: #25D366;
+      color: #ffffff;
+      border-color: #1ba851;
+      box-shadow: 0 10px 25px rgba(37,211,102,0.5);
+    }
+
+    .maint-cta-card {
+      text-align: center;
+    }
+
+    .cta-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .cta-note {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 1.3rem;
+    }
+
+    .cta-btn-main {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.9rem;
+      border-radius: 999px;
+      border: none;
+      text-decoration: none;
+      font-size: 0.98rem;
+      font-weight: 700;
+      background-color: #25D366;
+      color: white;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .cta-btn-main:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px rgba(37,211,102,0.5);
+    }
+
+    @media (max-width: 600px) {
+      .maintenance-page {
+        padding: 3.2rem 0 3rem;
+      }
+
+      .maint-card {
+        padding: 1.6rem 1.3rem;
+      }
+    }
+
+    .floating-actions {
+      position: fixed;
+      bottom: 25px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 1000;
+    }
+
+    .float-btn {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 3px solid rgba(255,255,255,0.8);
+      backdrop-filter: blur(15px);
+    }
+
+    .call-float {
+      background-color: #ea7b56;
+      color: #333333;
+      order: 2;
+    }
+
+    .call-float:hover {
+      transform: translateY(-8px) scale(1.1);
+      box-shadow: 0 20px 40px rgba(255,107,53,0.6);
+    }
+
+    .whatsapp-float {
+      background-color: rgb(6, 197, 6);
+      color: #333333;
+      order: 1;
+    }
+
+    .whatsapp-float:hover {
+      transform: translateY(-8px) scale(1.1);
+      box-shadow: 0 20px 40px rgba(37,211,102,0.6);
+    }
+
+    .footer-bottom {
+      padding: 1.5rem 0;
+      background: #ffffff;
+      border-top: 1px solid #e5e5e5;
+      font-size: 0.9rem;
+      color: #333333;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- TOP HEADER WITH HAMBURGER -->
+  <header class="main-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="Varsha Irrigation Logo" class="logo-img">
+      </a>
+
+      <!-- HAMBURGER MENU BUTTON -->
+      <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+      </div>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" class="nav-item">Home</a>
+        <a href="about us.html" class="nav-item">About Us</a>
+        <a href="service.html" class="nav-item">Services</a>
+        <a href="index.html#products" class="nav-item">Products</a>
+        <a href="maintenance.html" class="nav-item active">Maintenance</a>
+        <a href="contact us.html" class="nav-item">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU OVERLAY -->
+  <div class="menu-overlay" id="menuOverlay" onclick="closeMobileMenu()"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="maintenance-page">
+    <div class="container maint-page-inner">
+      <h1 class="maint-main-title">
+        <span style="color:green"><b>Varsha Irrigation & Landscape's</span><br>System Maintenance & AMC Services</b>
+      </h1>
+      <p class="maint-subtitle">
+        <span>Keep your drip and sprinkler systems running smoothly with regular check‑ups,
+        cleaning and seasonal tuning – so crops and landscapes never suffer due to small faults.</span>
+      </p>
+
+      <section class="maint-card">
+        <h2 class="maint-card-title">Why maintenance is important</h2>
+        <p class="maint-text">
+          Regular maintenance prevents blockages, uneven watering and sudden breakdowns that
+          can damage crops or lawns. Well‑maintained systems also save water and electricity
+          by running at the correct pressure and timing.
+        </p>
+      </section>
+
+      <section class="maint-card">
+        <h2 class="maint-card-title">What we cover</h2>
+        <ul class="maint-list">
+          <li>Leak fixing in mainline, laterals and joints</li>
+          <li>Filter cleaning and flushing for clean water flow</li>
+          <li>Sprinkler adjustment for proper throw and overlap</li>
+          <li>Controller check – programs, time settings and backup</li>
+        </ul>
+      </section>
+
+      <section class="maint-card">
+        <h2 class="maint-card-title">AMC Plans</h2>
+        <p class="maint-text">
+          Choose a maintenance plan that matches your farm, garden or campus requirements.
+        </p>
+        <div class="plans-row" id="amc-plans">
+          <button class="plan-pill" data-plan="Monthly AMC">Monthly AMC</button>
+          <button class="plan-pill" data-plan="Quarterly AMC">Quarterly AMC</button>
+          <button class="plan-pill" data-plan="Yearly AMC">Yearly AMC</button>
+        </div>
+      </section>
+
+      <section class="maint-card maint-cta-card">
+        <div class="cta-title">Book a Maintenance Visit</div>
+        <p class="cta-note">
+          Select a plan above and share your farm / site details – the team will confirm visit date and AMC options.
+        </p>
+        <button type="button" class="cta-btn-main" id="book-maint-btn">
+          📞 Book Maintenance Visit
+        </button>
+      </section>
+    </div>
+  </main>
+
+  <!-- FLOATING BUTTONS -->
+  <section>
+    <div class="floating-actions">
+      <a href="tel:+919822755102" class="float-btn call-float" title="Call Now">📞</a>
+      <a href="https://wa.me/919822755102?text=Hi%20, I%20want%20irrigation%20service!" class="float-btn whatsapp-float" title="WhatsApp">💬</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer-bottom">
+    <p>&copy; 2025 Varsha Irrigation & Landscape Solutions. All rights reserved. | Serving Maharashtra Farmers</p>
+  </div>
+
+  <script>
+    // ===== MOBILE MENU FUNCTIONS =====
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mainNav');
+      const overlay = document.getElementById('menuOverlay');
+      nav.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
+    function closeMobileMenu() {
+      const nav = document.getElementById('mainNav');
+      const overlay = document.getElementById('menuOverlay');
+      nav.classList.remove('active');
+      overlay.classList.remove('active');
+    }
+
+    // ===== AMC PLAN SELECTION =====
+    const planButtons = document.querySelectorAll('.plan-pill');
+    let selectedPlan = "";
+
+    planButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        planButtons.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedPlan = btn.getAttribute('data-plan');
+      });
+    });
+
+    // ===== WHATSAPP BOOKING =====
+    const bookBtn = document.getElementById('book-maint-btn');
+    bookBtn.addEventListener('click', () => {
+      const number = "919822755102";
+      const planText = selectedPlan || "Maintenance / AMC";
+      const msg = `Hi, I want to book a ${planText} visit for my irrigation system.`;
+      const encoded = encodeURIComponent(msg);
+      const waLink = `https://wa.me/${number}?text=${encoded}`;
+      window.open(waLink, "_blank");
+      closeMobileMenu();
+    });
+
+    // Close menu on resize
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) {
+        closeMobileMenu();
+      }
+    });
+  </script>
+</body>
+</html>
